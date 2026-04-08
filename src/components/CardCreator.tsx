@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Button } from './ui/core';
+import { Button } from '@/components/ui/core';
 import { Plus, Save, ArrowLeft } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 
