@@ -382,19 +382,18 @@ export default function Session({ onComplete, libraryIds }: { onComplete: () => 
         {/* Card */}
         <div className="w-full bg-surface border border-text-muted/10 shadow-xl aspect-[4/3] flex flex-col items-center justify-center p-8 text-center relative hover:-translate-y-1 transition-all duration-200">
           {isLearning ? (
-            <div className="animate-in fade-in duration-200 w-full flex flex-col gap-3 items-center text-left">
-              <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-brand-gold mb-1 text-center">
+            <div className="animate-in fade-in duration-200 w-full flex flex-col gap-4 items-center text-left">
+              <div className="text-[9px] font-mono uppercase tracking-[0.35em] text-brand-gold text-center">
                 New · Preview before recall
               </div>
               <h1 className="text-3xl font-black text-text-primary leading-tight text-center">{card.prompt}</h1>
-              <div className="space-y-2 text-sm text-text-muted max-w-lg">
-                <div className="flex flex-wrap gap-2">
-                  <span className="px-2 py-1 bg-primary border border-text-muted/20 text-text-primary text-[11px] uppercase tracking-widest">Answer</span>
-                  <span className="text-text-primary font-semibold">{card.answer}</span>
-                  {card.translation_ja && (
-                    <span className="px-2 py-1 border border-text-muted/20 text-[11px] uppercase tracking-widest">JP: {card.translation_ja}</span>
-                  )}
-                </div>
+              <p className="text-lg text-text-primary font-medium text-center">{card.answer}</p>
+              {card.translation_ja && (
+                <p className="px-2 py-1 border border-text-muted/20 text-[12px] uppercase tracking-widest text-text-muted">
+                  JP: {card.translation_ja}
+                </p>
+              )}
+              <div className="space-y-2 text-sm text-text-muted max-w-lg text-center">
                 {card.example_sentence && (
                   <p className="italic text-text-muted">“{card.example_sentence}”</p>
                 )}
@@ -449,12 +448,11 @@ export default function Session({ onComplete, libraryIds }: { onComplete: () => 
             </div>
           ) : (
             <div className="animate-in zoom-in-95 duration-100 w-full">
-              <p className="text-[9px] font-mono text-text-muted uppercase tracking-widest mb-4">
-                {lang === 'EN' ? 'Answer' : '答え'}
-              </p>
-              <h2 className="text-3xl font-medium text-text-primary leading-relaxed mb-10">
-                {card.answer}
-              </h2>
+              <div className="space-y-1 mb-6 text-center">
+                <p className="text-[11px] font-mono text-text-muted uppercase tracking-widest">Term</p>
+                <h2 className="text-3xl font-black text-text-primary leading-tight">{card.prompt}</h2>
+                <p className="text-lg text-text-primary">{currentPrompt?.solution ?? card.answer}</p>
+              </div>
               <div className="space-y-3 text-left text-sm text-text-muted max-w-xl mx-auto">
                 <div className="flex flex-wrap gap-2 items-center">
                   {card.translation_ja && (

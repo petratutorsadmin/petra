@@ -20,6 +20,7 @@ export interface OutputPrompt {
   secondary?: string;
   options?: string[]; // For scrambled blocks
   hint?: string;
+  solution?: string;
 }
 
 export type CardContent = {
@@ -61,6 +62,7 @@ export function transformCard(
         primary: answer,
         secondary: 'What is the precise term?',
         hint: card.topic ?? undefined,
+        solution: prompt,
       };
 
     case 'ja_to_en':
@@ -69,6 +71,7 @@ export function transformCard(
         primary: card.translation_ja ?? answer,
         secondary: 'Recall the English term.',
         hint: card.topic ?? undefined,
+        solution: prompt,
       };
 
     case 'en_to_ja':
@@ -77,6 +80,7 @@ export function transformCard(
         primary: prompt,
         secondary: 'Produce the Japanese meaning.',
         hint: card.translation_ja ?? undefined,
+        solution: card.translation_ja ?? answer,
       };
 
     case 'cloze': {
@@ -91,6 +95,7 @@ export function transformCard(
         primary: cloze,
         secondary: 'Complete the sentence.',
         hint: card.cue ?? card.collocation ?? undefined,
+        solution: prompt,
       };
     }
 
@@ -100,6 +105,7 @@ export function transformCard(
         primary: card.collocation ?? `Use "${prompt}" naturally.`,
         secondary: card.example_sentence ?? 'Write or say a sentence.',
         hint: card.cue ?? undefined,
+        solution: prompt,
       };
 
     case 'scramble': {
