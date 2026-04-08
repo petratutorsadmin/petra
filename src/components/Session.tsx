@@ -35,21 +35,19 @@ export default function Session({ onComplete, libraryIds }: { onComplete: () => 
   useEffect(() => { fetchSessionCards(); }, []);
 
   const ensureProfileExists = async (userId: string) => {
-    try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('id', userId)
-        .limit(1)
-        .maybeSingle();
-      if (error) {
-        console.warn('profile check failed', error.message);
-        return;
-      }
-      if (!data) {
-        await supabase.from('profiles').upsert({ id: userId });
-      }
-    } catch (_e) {
+    const { data, error }: { data: { id: string } | null; error: any } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('id', userId)
+      .limit(1)
+      .maybeSingle();
+
+    if (error) {
+      console.warn('profile check failed', error?.message ?? error);
+      return;
+    }
+
+    if (!data) {
       await supabase.from('profiles').upsert({ id: userId });
     }
   };
